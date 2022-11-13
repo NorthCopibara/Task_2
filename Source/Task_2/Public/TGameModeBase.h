@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "Task_2/Public/UI/THUD.h"
 #include "TGameModeBase.generated.h"
 
 UCLASS()
@@ -14,9 +13,4 @@ class TASK_2_API ATGameModeBase : public AGameModeBase
 
 public:
 	ATGameModeBase();
-
-	virtual void BeginPlay() override;
-
-private:
-	ATHUD* GetHud() const;
 };
