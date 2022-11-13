@@ -49,7 +49,6 @@ SourceArt/**/*.tga
 # Binary Files
 Binaries/*
 Plugins/*/Binaries/*
-Plugins/Developer/*
 
 # Builds
 Build/*
@@ -61,9 +60,6 @@ Build/*/**
 
 # Don't ignore icon files in Build
 !Build/**/*.ico
-
-!Plugins/**/*.dll
-!Plugins/Projects/steampunk/Plugins/FMODStudio/Binaries/Win64/fmodL_vc.lib
 
 # Built data for maps
 *_BuiltData.uasset
@@ -77,13 +73,3 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
-
-# Only allow .uasset and .umap files from /Content dir.
-# They're tracked by git-lfs, don't forget to track other
-# files if adding them here.
-!/Content/**/*.uasset
-!/Content/**/*.umap
-
-# Allow any files from /RawContent dir.
-# Any file in /RawContent dir will be managed by git lfs.
-!/RawContent/**/*
