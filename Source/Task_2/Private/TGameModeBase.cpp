@@ -24,6 +24,13 @@ void ATGameModeBase::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Test: %i"), Id);
 	});
+
+	const auto PlayerController = UGameplayStatics::GetPlayerController(this, 0);
+	auto Mode = FInputModeUIOnly();
+	Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+	
+	PlayerController->SetInputMode(Mode);
+	PlayerController->SetShowMouseCursor(true);
 }
 
 ATHUD* ATGameModeBase::GetHud() const
