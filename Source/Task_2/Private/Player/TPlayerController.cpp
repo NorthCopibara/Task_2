@@ -31,16 +31,9 @@ void ATPlayerController::InitInput()
 
 void ATPlayerController::InitHUD() const
 {
-	const auto HUD = Cast<ATHUD>(GetHUD());
-	if (!HUD)
-	{
-		//TODO: error
-		return;
-	}
-
+	const auto HUD = CastChecked<ATHUD>(GetHUD());
 	HUD->Init([&](const int32 Id)
 	{
-		//TODO: ref
 		ATSpawnPoint* SpawnPoint = *SpawnPoints.FindByPredicate([&Id](const ATSpawnPoint* InternalSpawnPoint)
 		{
 			return InternalSpawnPoint->GetSpawnPointId() == Id;
@@ -70,7 +63,6 @@ void ATPlayerController::InitHUD() const
 			return;
 		}
 
-		AiCharacter->SetTargetPoint(TargetPoint);
-		AiCharacter->MoveToTarget();
+		AiCharacter->InitAiCharacter(TargetPoint);
 	});
 }

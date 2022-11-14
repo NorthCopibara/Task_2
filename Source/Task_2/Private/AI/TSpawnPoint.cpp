@@ -20,7 +20,6 @@ ATAICharacter* ATSpawnPoint::SpawnAiCharacter()
 
 	OnSpawn();
 	
-	//TODO: play spawn effect
 	return Character;
 }
 

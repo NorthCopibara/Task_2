@@ -15,9 +15,6 @@ public:
 	ATTargetPoint();
 
 	int32 GetTargetPointId() const { return TargetPointId; }
-	
-protected:
-	virtual void BeginPlay() override;
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game")

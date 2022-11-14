@@ -8,10 +8,3 @@ ATTargetPoint::ATTargetPoint()
 {
 	PrimaryActorTick.bCanEverTick = false;
 }
-
-void ATTargetPoint::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-

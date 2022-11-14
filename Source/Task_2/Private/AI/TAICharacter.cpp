@@ -10,20 +10,19 @@ ATAICharacter::ATAICharacter()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
+void ATAICharacter::InitAiCharacter(ATTargetPoint* NewTargetPoint)
+{
+	TargetPoint = NewTargetPoint;
+	const auto AiController = CastChecked<ATAiController>(GetController());
+	AiController->MoveToTarget();
+}
+
 UBehaviorTree* ATAICharacter::GetBehaviourTree() const
 {
-	check(BehaviorTree)
 	return BehaviorTree;
 }
 
 ATTargetPoint* ATAICharacter::GetTargetPoint() const
 {
-	check(TargetPoint);
 	return TargetPoint;
-}
-
-void ATAICharacter::MoveToTarget() const
-{
-	const auto AiController = CastChecked<ATAiController>(GetController());
-	AiController->MoveToTarget();
 }

@@ -16,15 +16,13 @@ class TASK_2_API ATAICharacter : public ACharacter
 public:
 	ATAICharacter();
 
-	void SetTargetPoint(ATTargetPoint* NewTargetPoint) { TargetPoint = NewTargetPoint; }
+	void InitAiCharacter(ATTargetPoint* NewTargetPoint);
 
 	UBehaviorTree* GetBehaviourTree() const;
 	
 	UFUNCTION(BlueprintGetter, Category = "Game")
 	ATTargetPoint* GetTargetPoint() const;
 
-	void MoveToTarget() const;
-	
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "AI")
 	UBehaviorTree* BehaviorTree;
