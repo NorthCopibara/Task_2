@@ -17,7 +17,7 @@ public:
 
 	int32 GetSpawnPointId() const { return SpawnPointId; }
 
-	void SpawnAiCharacter();
+	ATAICharacter* SpawnAiCharacter();
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game")

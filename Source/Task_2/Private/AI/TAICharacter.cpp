@@ -2,6 +2,7 @@
 
 
 #include "AI/TAICharacter.h"
+#include "AI/TAiController.h"
 
 
 ATAICharacter::ATAICharacter()
@@ -9,9 +10,20 @@ ATAICharacter::ATAICharacter()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
-void ATAICharacter::BeginPlay()
+UBehaviorTree* ATAICharacter::GetBehaviourTree() const
 {
-	Super::BeginPlay();
-	
+	check(BehaviorTree)
+	return BehaviorTree;
 }
 
+ATTargetPoint* ATAICharacter::GetTargetPoint() const
+{
+	check(TargetPoint);
+	return TargetPoint;
+}
+
+void ATAICharacter::MoveToTarget() const
+{
+	const auto AiController = CastChecked<ATAiController>(GetController());
+	AiController->MoveToTarget();
+}

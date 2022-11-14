@@ -14,7 +14,8 @@ public class Task_2 : ModuleRules
 			"CoreUObject",
 			"Engine",
 			"InputCore",
-			"UMG"
+			"UMG",
+			"AIModule"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });

@@ -3,10 +3,10 @@
 
 #include "Player/TPlayerController.h"
 
-#include "Kismet/GameplayStatics.h"
+#include "AI/TTargetPoint.h"
+#include "Algo/ForEach.h"
 #include "UI/THUD.h"
 
-DEFINE_LOG_CATEGORY_STATIC(LogTPlayerController, All, All);
 
 ATPlayerController::ATPlayerController()
 {
@@ -19,7 +19,8 @@ void ATPlayerController::BeginPlay()
 
 	InitInput();
 	InitHUD();
-	InitSpawnPoints();
+	InitPool(SpawnPoints);
+	InitPool(TargetPoints);
 }
 
 void ATPlayerController::InitInput()
@@ -37,27 +38,39 @@ void ATPlayerController::InitHUD() const
 		return;
 	}
 
-	HUD->Init([&](int32 Id)
+	HUD->Init([&](const int32 Id)
 	{
-		if(SpawnPointsMap.Contains(Id)) {
-			SpawnPointsMap[Id]->SpawnAiCharacter();
+		//TODO: ref
+		ATSpawnPoint* SpawnPoint = *SpawnPoints.FindByPredicate([&Id](const ATSpawnPoint* InternalSpawnPoint)
+		{
+			return InternalSpawnPoint->GetSpawnPointId() == Id;
+		});
+
+		if (!SpawnPoint)
+		{
+			UE_LOG(LogTPlayerController, Error, TEXT("Spawn point not found"))
+			return;
 		}
+
+		const auto AiCharacter = SpawnPoint->SpawnAiCharacter();
+		if (!AiCharacter)
+		{
+			UE_LOG(LogTPlayerController, Error, TEXT("AI character not spawned"))
+			return;
+		}
+
+		ATTargetPoint* TargetPoint = *TargetPoints.FindByPredicate([&Id](const ATTargetPoint* Point)
+		{
+			return Point->GetTargetPointId() == Id;
+		});
+
+		if (!TargetPoint)
+		{
+			UE_LOG(LogTPlayerController, Error, TEXT("Target point not found"))
+			return;
+		}
+
+		AiCharacter->SetTargetPoint(TargetPoint);
+		AiCharacter->MoveToTarget();
 	});
-}
-
-void ATPlayerController::InitSpawnPoints()
-{
-	TArray<AActor*> SpawnPointsActors;
-	UGameplayStatics::GetAllActorsOfClass(this, ATSpawnPoint::StaticClass(), SpawnPointsActors);
-
-	for (const auto SpawnPointActor : SpawnPointsActors)
-	{
-		const auto SpawnPoint = Cast<ATSpawnPoint>(SpawnPointActor);
-		if(!SpawnPoint) continue;
-
-		const auto SpawnPointId = SpawnPoint->GetSpawnPointId();
-		SpawnPointsMap.Emplace(SpawnPointId, SpawnPoint);
-		
-		UE_LOG(LogTPlayerController, Display, TEXT("Spawn point %i added"), SpawnPointId);
-	}
 }

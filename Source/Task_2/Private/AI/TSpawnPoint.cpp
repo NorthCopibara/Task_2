@@ -7,15 +7,18 @@ DEFINE_LOG_CATEGORY_STATIC(LogTSpawnPoint, All, All);
 
 ATSpawnPoint::ATSpawnPoint()
 {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 }
 
-void ATSpawnPoint::SpawnAiCharacter()
+ATAICharacter* ATSpawnPoint::SpawnAiCharacter()
 {
 	check(GetWorld());
 	
 	const auto Character = GetWorld()->SpawnActor<ATAICharacter>(AiCharacter, GetActorLocation(), GetActorRotation());
 
 	UE_LOG(LogTSpawnPoint, Display, TEXT("Ai character spawned"));
+	
+	//TODO: play spawn effect
+	return Character;
 }
 
