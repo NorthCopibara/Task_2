@@ -19,7 +19,6 @@ void ATAiController::MoveToTarget()
 	const auto BlackboardComponent = GetBlackboardComponent();
 	if (!BlackboardComponent) return; //TODO: log
 	BlackboardComponent->SetValueAsVector(TargetPointKeyName, GameAiCharacter->GetTargetPoint()->GetActorLocation());
-	BlackboardComponent->SetValueAsEnum(BehaviourStateKeyName, static_cast<uint8>(EBehaviourState::MoveToTarget));
 }
 
 void ATAiController::OnPossess(APawn* InPawn)
