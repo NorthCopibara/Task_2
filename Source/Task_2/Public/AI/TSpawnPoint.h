@@ -19,6 +19,9 @@ public:
 
 	ATAICharacter* SpawnAiCharacter();
 
+	UFUNCTION(BlueprintNativeEvent, Category = "Game")
+	void OnSpawn();
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game")
 	int32 SpawnPointId;

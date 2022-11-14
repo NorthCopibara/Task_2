@@ -17,8 +17,14 @@ ATAICharacter* ATSpawnPoint::SpawnAiCharacter()
 	const auto Character = GetWorld()->SpawnActor<ATAICharacter>(AiCharacter, GetActorLocation(), GetActorRotation());
 
 	UE_LOG(LogTSpawnPoint, Display, TEXT("Ai character spawned"));
+
+	OnSpawn();
 	
 	//TODO: play spawn effect
 	return Character;
+}
+
+void ATSpawnPoint::OnSpawn_Implementation()
+{
 }
 
